@@ -1,5 +1,5 @@
 - mpsel - a dmenu script to show your mpd playlist and play the one you want
 - mptog - a dmenu script to toggle play or payse mpd, and start mpd if it's not started (per user mpd)
 - shutup - a dmenu script to poweroff your pc
-- statusbar - a dmenu script to show a nice statusbar on dwm bar
+- statusbar - a script to show a nice statusbar on dwm bar
 
