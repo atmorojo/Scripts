@@ -4,7 +4,7 @@ A dmenu script to show your mpd playlist and play the one you want
 
 - mptog - 
 ============================
-A dmenu script to toggle play or payse mpd, and start mpd if it's not started (per user mpd)
+A dmenu script to toggle play or pause mpd, and start mpd if it's not started (per user mpd)
 
 - shutup - 
 ============================ 
