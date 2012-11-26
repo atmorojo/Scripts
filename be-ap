@@ -1,7 +1,0 @@
-#!/bin/sh
-
-netcfg up bridge &&
-rc.d start hostapd &&
-
-echo "done" | less
-
