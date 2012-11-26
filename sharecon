@@ -1,0 +1,9 @@
+#!/bin/bash
+
+iwconfig wlan0 mode ad-hoc
+iwconfig wlan0 essid atmofreenet
+ifconfig wlan0 192.168.0.254 up
+iptables -t nat -A POSTROUTING -o ppp0 -j MASQUERADE
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+echo "done!!" | less
