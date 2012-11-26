@@ -1,0 +1,9 @@
+#!/bin/sh
+
+mpdoff=`mpc version`
+
+if [ -z "$mpdoff" ]; then
+	mpd; mpc play 
+else
+	mpc toggle
+fi

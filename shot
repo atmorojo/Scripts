@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+
+screenshot() {
+	case $1 in
+	f)
+		 scrot ~/Pictures/screenshot/%F_%r.png -d 5 -q 100
+		;;
+	s)
+		sleep 1
+		scrot ~/Pictures/screenshot/%F_%r.png -s -q 100
+		;;
+	*)
+		;;
+	esac;
+}
+
+screenshot $1

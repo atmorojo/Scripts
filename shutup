@@ -1,0 +1,16 @@
+#!/bin/sh
+cmd=$(echo -e "shutdown\nrestart\nhibernate\nkillX" | /usr/bin/dmenu -b -p "Action:" -fn "-*-profont-medium-*-*-*-10-*-*-*-*-*-*-*" -nb "#000000" -nf "#DDD" -sf "#FF006B" -sb "#000")
+case $cmd in
+shutdown)
+	sleep 1s && sudo poweroff
+;;
+restart)
+	sleep 1s && sudo reboot
+;;
+hibernate)
+	sleep 1s && sudo pm-hibernate
+;;
+killX)
+       	killall X
+;;
+esac

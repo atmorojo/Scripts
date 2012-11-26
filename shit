@@ -1,0 +1,3 @@
+#!/bin/sh
+
+xinit -nolisten tcp vt07 -dpi 96 2&>.x.log &
