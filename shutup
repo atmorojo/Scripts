@@ -1,16 +1,17 @@
 #!/bin/sh
 cmd=$(echo -e "shutdown\nrestart\nhibernate\nkillX" | /usr/bin/dmenu -b -p "Action:" -fn "-*-profont-medium-*-*-*-10-*-*-*-*-*-*-*" -nb "#000000" -nf "#DDD" -sf "#FF006B" -sb "#000")
+
 case $cmd in
-shutdown)
-	sleep 1s && systemctl poweroff
-;;
-restart)
-	sleep 1s && systemctl reboot
-;;
-hibernate)
-	sleep 1s && systemctl hibernate
-;;
-killX)
-       	killall X
-;;
+	shutdown)
+		sleep 1s && systemctl poweroff
+		;;
+	restart)
+		sleep 1s && systemctl reboot
+		;;
+	hibernate)
+		sleep 1s && systemctl hibernate
+		;;
+	killX)
+		killall X
+		;;
 esac
