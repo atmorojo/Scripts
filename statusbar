@@ -1,5 +1,5 @@
 #!/bin/bash
-# DWM status script
+# DWM statusbar script
 
 tgl(){
 	tgl="$(date +"%a, %d %b - %H:%M")"
