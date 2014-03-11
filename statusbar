@@ -3,45 +3,39 @@
 
 tgl(){
 	tgl="$(date +"%a, %d %b - %H:%M")"
-	echo -e "\x02·\uE0A2· \x01$tgl"
+	echo -e "\x05·TIME· \x01$tgl"
 }
 
 bat(){
-	perc="$(acpi -b | awk 'NR==1 {print +$4}')"	
+	perc="$(acpi -b | awk '{print +$4}')"
 	charge="$(acpi -b | grep "Charging")"
-	online="$(acpi -V | grep "on-line" | awk '{print $3}')"
+	online="$(acpi -V | grep "on-line")"
 	full="$(acpi -b | grep 'Full')"
-	
+
 	if [ -z "$charge" ] && [ -z "$perc" ]; then
-		echo -e "\x02·\uE041· \x01no-bat"
-	elif [ -z "$online" ] && [ "$perc" -ge "50" ]; then
-		echo -e "\x02·\uE093· \x01$perc%"
- 	elif [ -z "$online" ] && [ "$perc" -le "49" ]; then
-		echo -e "\x02·\uE092· \x01$perc%"
-    	elif [ -z "$online" ] && [ "$perc" -le "20" ]; then
-      		echo -e "\x03·\uE091· \x03$perc%"
-      	elif [ -z "$online" ] && [ "$perc" -le "5" ]; then
-		echo -e "\x03·\uE090· \x03$perc%"
+		echo -e "\x05·BAT· \x01no-bat"
+	elif [ -z "$online" ] && [ "$perc" -le "20" ]; then
+		echo -e "\x05·BAT· \x03$perc% BATTERY LOW"
 	elif [ "$full" ]; then
-		echo -e "\x02·\uE040· \x01FULL"
+		echo -e "\x05·BAT· \x01FULL"
 	else
-		echo -e "\x02·\uE040· \x01$perc%"
+		echo -e "\x05·BAT· \x01$perc%"
 	fi
 }
 
 vol(){
-	mute=`amixer get Master | grep "Mono:" | awk '{print $6}'`
-	if [ $mute == "[on]" ]; then
+	mute=`amixer get Master | grep off`
+	if [ -z $mute ]; then
 		vol=`amixer get Master | grep -m 1 -o '[0-9][0-9]*%'`
-		echo -e "\x02·\uE05D· \x01$vol"
+		echo -e "\x05·VOL· \x01$vol"
 	else
-		echo -e "\x02·\uE052· \x01mute"
+		echo -e "\x05·VOL· \x01mute"
 	fi
 }
 
 mem(){
 	mem=`free -m | awk '/cache:/ {printf("%dMB", $3)}'`
-	echo -e "\x02·\uE028· \x01$mem"
+	echo -e "\x05·MEM· \x01$mem"
 }
 
 cpu(){
@@ -51,20 +45,20 @@ cpu(){
 	read cpu a b c idle rest < /proc/stat
 	total=$((a+b+c+idle))
 	cpu=$((100*( (total-prevtotal) - (idle-previdle) ) / (total-prevtotal) ))
-	echo -e "\x02·\uE082· \x01$cpu%"
+	echo -e "\x05·CPU· \x01$cpu%"
 }
 
 mpd(){
 	if mpc &> /dev/null && [[ $(mpc | wc -l) != 1 ]]; then
 		if [[ $(mpc | awk 'NR==2 {print $1}') == "[paused]" ]] ; then
-			echo -e "\x02\uE0FE \x01$( mpc | head -1 )"
+			echo -e "\x05\uE0FE \x01$( mpc | head -1 )"
 		else
-			echo -e "\x02\uE0FD \x01$( mpc | head -1 )"
+			echo -e "\x05\uE0FD \x01$( mpc | head -1 )"
 		fi
 	fi
 }
 
 while true ; do
-	xsetroot -name "$(mpd) $(cpu) $(mem) $(vol) $(bat) $(tgl)"
+	xsetroot -name "$(mpd) $(cpu) $(mem) $(vol) $(bat) $(tgl) "
 	sleep 1s
 done &
