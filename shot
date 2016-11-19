@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 case "$1" in
     f)
-        scrot "/home/atmorojo/Pictures/Screenshots/$(date %b%d::%H%M%S).png"
+        scrot -q 100 "/home/atmorojo/Pictures/Screenshots/$(date +%b%d::%H%M%S).png"
         ;;
     s)
-        scrot -s "/home/atmorojo/Pictures/Screenshots/$(date %b%d::%H%M%S.png)"
+        scrot -q 100 -s "/home/atmorojo/Pictures/Screenshots/$(date +%b%d::%H%M%S).png"
         ;;
 esac

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 NUM="$(mpc playlist -f '%position% - %artist% : %title%' | dmenu -b -p 'Play:' -fn '-*-profont-medium-*-*-*-10-*-*-*-*-*-*-*' -nb '#000000' -nf '#DDD' -sf '#FF006B' -sb '#000' | awk {'print $1'})"
 
