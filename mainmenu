@@ -17,23 +17,23 @@ auto_line ()
 }
 
 # Fonts
-font1='-artwiz-lime-medium-r-normal--10-110-75-75-m-50-iso8859-1'
-font2='-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1'
+#font1='-artwiz-lime-medium-r-normal--10-110-75-75-m-50-iso8859-1'
+font1='lime:size=8'
 
 # Dmenu Preferences
 
 # Width
-W=64
+W=100
 # Horizontal Position
 X=612
 # Vertical Position
 Y=304
 
 
-menu_list="  Run\n  File\n  Edit\n  View\n  Term\n  Web\n  Rngr\n  Wifi\n  Music\n`auto_line`\n  Info\n  Find\n  Sett\n\n    "
+menu_list="  Run\n  File\n  Edit\n  View\n  Term\n  Web\n  Game\n  Rngr\n  Wifi\n  Music\n`auto_line`\n  Info\n  Find\n  Sett\n\n    "
 
 # Get colr: http://ow.ly/MYBjg or manually enter the color codes
-Dmenu="/usr/bin/dmenu -i -fn '$font1','$font2' -x $X -y $Y -w $W -l 20 -nb '#`colr bg`' -sb '#`colr cynf`' -nf '#`colr fg`' -sf '#`colr bg`'"
+Dmenu="/usr/bin/dmenu -i -fn '$font1' -x $X -y $Y -w $W -l 20 -nb '#`colr bg`' -sb '#`colr cynf`' -nf '#`colr fg`' -sf '#`colr bg`'"
 
 
 # Putting it all together
@@ -58,6 +58,9 @@ case $cmd in
 
 	*Web)
 		firefox --private > /dev/null 2>&1 ;;
+
+    *Game)
+        LD_PRELOAD='/usr/$LIB/libstdc++.so.6 /usr/$LIB/libgcc_s.so.1 /usr/$LIB/libxcb.so.1 /usr/$LIB/libgpg-error.so' /usr/bin/steam ;;
 
 	*Music)
 		$HOME/bin/mpd-launch ;;

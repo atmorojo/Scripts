@@ -2,8 +2,9 @@
 # DWM statusbar script
 
 tgl(){
-    tgl="$(date +"%a, %d %b - %H:%M")"
-    echo -e "\x05$tgl"
+    tgl="$(date +"%a, %d %b")"
+    jam="$(date +"%H:%M")"
+    echo -e "$tgl \x02$jam"
 }
 
 bat(){
@@ -13,13 +14,13 @@ bat(){
     full="$(acpi -b | grep 'Full')"
 
     if [ -z "$charge" ] && [ -z "$perc" ]; then
-        echo -e "\x05·BAT·\x01 no-bat"
+        echo -e "\x02·BAT·\x01 no-bat"
     elif [ -z "$online" ] && [ "$perc" -le "20" ]; then
-        echo -e "\x05\uE038\x03$perc% BATTERY LOW"
+        echo -e "\x02\uE038\x03$perc BATTERY LOW"
     elif [ "$perc" -ge "85" ]; then
-        echo -e "\x05\uE03B\x01 $perc%"
+        echo -e "\x05\uE1FE $perc\x01"
     else
-        echo -e "\x05\uE03A\x01 $perc%"
+        echo -e "\x05\uE1FE $perc\x01"
     fi
 }
 
@@ -27,15 +28,15 @@ vol(){
     mute=`amixer get Master | grep off`
     if [ -z $mute ]; then
         vol=`amixer get Master | grep -m 1 -o '[0-9][0-9]*%'`
-        echo -e "\x05\uE05D\x01 $vol"
+        echo -e "\x02\uE05D\x01 $vol"
     else
-        echo -e "\x05\uE05F\x01"
+        echo -e "\x02\uE05F\x01"
     fi
 }
 
 mem(){
     mem=`free -m | awk '/Mem:/ {printf("%d%", $3/$2*100)}'`
-    echo -e "\x05\uE028\x01 $mem"
+    echo -e "\x02\uE028\x01 $mem"
 }
 
 cpu(){
@@ -45,21 +46,22 @@ cpu(){
     read cpu a b c idle rest < /proc/stat
     total=$((a+b+c+idle))
     cpu=$((100*( (total-prevtotal) - (idle-previdle) ) / (total-prevtotal) ))
-    echo -e "\x05\uE026\x01  $cpu%"
+    echo -e "\x02\uE026\x01  $cpu%"
 }
 
 mpd(){
     if mpc &> /dev/null && [[ $(mpc | wc -l) != 1 ]]; then
         if [[ $(mpc | awk 'NR==2 {print $1}') == "[paused]" ]] ; then
-            echo -e "\x05\uE0FE\x01 $( mpc | head -1 )"
+            echo -e "\x02\uE0FE\x01 $( mpc | head -1 )"
         else
-            echo -e "\x05\uE0FD\x01 $( mpc | head -1 )"
+            echo -e "\x02\uE0FD\x01 $( mpc | head -1 )"
         fi
     fi
 }
 
 while true ; do
-    status=`echo -e "$(mpd)   $(cpu)   $(mem)   $(vol)   $(bat)   $(tgl)"`
+    # status=`echo -e "$(mpd)   $(cpu)   $(mem)   $(vol)   $(bat)   $(tgl) "`
+    status=`echo -e " $(bat)      $(tgl) "`
     xsetroot -name "$status"
     sleep 1s
 done &

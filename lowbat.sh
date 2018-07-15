@@ -1,12 +1,14 @@
 #!/bin/sh
+#
+# z3bra - (c) wtfpl 2014
+# check battery level, and raise a notification if the capacity is
+# under a defined level
 
-export XAUTHORITY=/home/atmorojo/.Xauthority
-export DISPLAY=":0"
+ICON=$(echo -e "\ue237")
+LEVL=20
 
-battery_level=`acpi -b | cut -d ' ' -f 4 | grep -o '[0-9]*'`
-online="$(acpi -V | grep "on-line")"
-
-if [ -z "$online" ] && [ $battery_level -le 10 ];
-then
-    notify-send "Battery low" "Battery level is ${battery_level}%!"
-fi
+while true; do
+    BATC=$(sed 's/%//' /sys/class/power_supply/BAT0/capacity)
+    test ${BATC} -le ${LEVL} && popup "%{R} $ICON %{R} Your battery is running low: %{R} $BATC %{R} remaining" w
+    sleep 1m
+done

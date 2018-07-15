@@ -2,9 +2,9 @@
 
 case "$1" in
     f)
-        scrot -q 100 "/home/atmorojo/Pictures/Screenshots/$(date +%b%d::%H%M%S).png"
+        maim -m 1 "/home/atmorojo/Pictures/Screenshots/$(date +%b%d::%H%M%S).png"
         ;;
     s)
-        scrot -q 100 -s "/home/atmorojo/Pictures/Screenshots/$(date +%b%d::%H%M%S).png"
+        maim -m 1 -s "/home/atmorojo/Pictures/Screenshots/$(date +%b%d::%H%M%S).png"
         ;;
 esac
