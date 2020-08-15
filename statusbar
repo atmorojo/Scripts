@@ -4,7 +4,7 @@
 tgl(){
     tgl="$(date +"%a, %d %b")"
     jam="$(date +"%H:%M")"
-    echo -e "$tgl \x02$jam"
+    echo -e "$tgl $jam"
 }
 
 bat(){
@@ -14,13 +14,13 @@ bat(){
     full="$(acpi -b | grep 'Full')"
 
     if [ -z "$charge" ] && [ -z "$perc" ]; then
-        echo -e "\x02·BAT·\x01 no-bat"
+        echo -e "·BAT· no-bat"
     elif [ -z "$online" ] && [ "$perc" -le "20" ]; then
-        echo -e "\x02\uE038\x03$perc BATTERY LOW"
+        echo -e "·BAT· $perc% BATTERY LOW"
     elif [ "$perc" -ge "85" ]; then
-        echo -e "\x05\uE1FE $perc\x01"
+        echo -e "·BAT· $perc%"
     else
-        echo -e "\x05\uE1FE $perc\x01"
+        echo -e "·BAT· $perc%"
     fi
 }
 
@@ -59,9 +59,5 @@ mpd(){
     fi
 }
 
-while true ; do
-    # status=`echo -e "$(mpd)   $(cpu)   $(mem)   $(vol)   $(bat)   $(tgl) "`
-    status=`echo -e " $(bat)      $(tgl) "`
-    xsetroot -name "$status"
-    sleep 1s
-done &
+status=`echo -e " $(bat)      $(tgl) "`
+dunstify "$status"

@@ -1,0 +1,21 @@
+#!/bin/bash
+file=$1
+
+# check if user supplied a file name
+if [ -z $file ]; then
+  echo "No file name supplied."
+elif [ -f $file ]; then
+  echo "Converting..."
+
+  gs -dSAFER -dBATCH \
+    -dNOPAUSE -dNOCACHE -sDEVICE=pdfwrite \
+    -sColorConversionStrategy=CMYK \
+    -dProcessColorModel=/DeviceCMYK \
+    -sOutputFile=cmyk_$file \
+    $file
+
+else
+  echo "File not found."
+fi
+
+

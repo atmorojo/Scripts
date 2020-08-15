@@ -1,0 +1,49 @@
+#!/bin/sh
+
+# how long should the popup remain?
+duration=3
+
+# define geometry
+# barx=10
+# bary=100
+# barw=120
+# barh=20
+
+# colors
+bar_fg='#FFFFFF'
+
+bar1_bg='#111111'
+bar2_bg='#777777'
+war_bg='#C94242'
+
+case "$2" in
+    h)
+        bar_bg=$bar2_bg
+        ;;
+    w)
+        bar_bg=$war_bg
+        ;;
+    *)
+        bar_bg=$bar1_bg
+        ;;
+esac
+
+
+# font used
+fb_font="-gohu-gohufont-*-*-normal-*-14-*-*-*-*-*-*-*"
+icon_font='-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1'
+bar_font='-gohu-gohufont-*-*-normal-*-14-*-*-*-*-*-*-*'
+
+
+
+# compute all this
+
+baropt="-g ${barw}x${barh}+${barx}+${bary} \
+    -f ${bar_font} \
+    -f ${icon_font} \
+    -f ${fb_font} \
+    -B ${bar_bg} \
+    -d"
+
+# Create the popup and make it live for 3 seconds
+(echo "%{c} $1"; sleep ${duration}) | lemonbar ${baropt}

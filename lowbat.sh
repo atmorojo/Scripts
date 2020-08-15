@@ -4,11 +4,17 @@
 # check battery level, and raise a notification if the capacity is
 # under a defined level
 
-ICON=$(echo -e "\ue237")
-LEVL=20
+LEVL=30
 
 while true; do
     BATC=$(sed 's/%//' /sys/class/power_supply/BAT0/capacity)
-    test ${BATC} -le ${LEVL} && popup "%{R} $ICON %{R} Your battery is running low: %{R} $BATC %{R} remaining" w
-    sleep 1m
+    CHARGE=$(acpi -b | grep "Charging")
+    
+    # Test if the charger is plugged
+    if [ -z ${CHARGE} ]; then
+      # Raise a warnig if the charger is unplugged and the battery is below the
+      # desired percentage
+      test ${BATC} -le ${LEVL} && dunstify "Your battery is running low: $BATC remaining" 
+      sleep 30s
+    fi
 done
