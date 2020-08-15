@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# The script's not mine. I got this somewhere
+# on the Internet
+
 file=$1
 
 # check if user supplied a file name
@@ -17,5 +21,3 @@ elif [ -f $file ]; then
 else
   echo "File not found."
 fi
-
-
