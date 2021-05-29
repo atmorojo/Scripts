@@ -1,9 +1,12 @@
 #!/bin/sh
 
-convert $1 -colors 16 -depth 8 -format '%c' histogram:info:- \
-    | sort --reverse --numeric-sort \
-    | gawk 'match ($0, /^ *[0-9]+: \([^)]+\) (#[0-9A-F]+) .+$/, a) { print a[1] }' \
-    | tee "palette.txt" \
-    | while read colour; do convert -size 20x20 "xc:$colour" +depth miff:-; done \
-    | montage - -geometry +0+0 "palette.png"
+echo "GIMP Palette
+Name: $2
+Columns: 1
+#" > $2.gpl;
 
+convert "$1" -colors 16 -depth 8 -format '%c' histogram:info:- \
+    | sort --reverse --numeric-sort \
+    | sed -n '/\((*)\)/ p' \
+    | awk '{gsub(/\(|,|\)|:/,"")}1 {print $1, $2, $3}' \
+    >> $2.gpl

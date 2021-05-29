@@ -1,10 +1,16 @@
-#!/bin/bash
+#!/bin/sh
 
 case "$1" in
     f)
-        maim -m 1 "/home/atmorojo/Pictures/Screenshots/$(date +%b%d::%H%M%S).png"
+        maim -m 1 -d 1 -u \
+            | convert - \( +clone -background none -shadow 50x25+0+10 \) \
+            +swap background none -layers merge +repage \
+            "/home/atmorojo/Pictures/Screenshots/$(date +%Y%b%d::%H%M%S).png"
         ;;
     s)
-        maim -m 1 -s "/home/atmorojo/Pictures/Screenshots/$(date +%b%d::%H%M%S).png"
+        maim -m 1 -s -d 1 -u \
+            | convert - \( +clone -background none -shadow 50x25+0+10 \) \
+            +swap background none -layers merge +repage \
+            "/home/atmorojo/Pictures/Screenshots/$(date +%Y%b%d::%H%M%S).png"
         ;;
 esac

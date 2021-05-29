@@ -4,7 +4,7 @@
 # check battery level, and raise a notification if the capacity is
 # under a defined level
 
-LEVL=30
+LEVL=10
 
 while true; do
     BATC=$(sed 's/%//' /sys/class/power_supply/BAT0/capacity)

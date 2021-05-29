@@ -1,0 +1,67 @@
+#!/bin/bash
+# DWM statusbar script
+
+tgl(){
+    tgl="$(date +"%a, %d %b – %H:%M")"
+    echo -e "$tgl"
+}
+
+bat(){
+    perc="$(acpi -b | awk '{print +$4}')"
+    charge="$(acpi -b | grep "Charging")"
+    online="$(acpi -V | grep "on-line")"
+    full="$(acpi -b | grep 'Full')"
+
+    if [ -z "$charge" ] && [ -z "$perc" ]; then
+        echo -e "·BAT· no-bat"
+    elif [ -z "$charge" ] && [ "$perc" -le "20" ]; then
+        echo -e "·BAT· $perc% BATTERY LOW";
+        dunstify "Your battery is running low: $perc% remaining";
+    elif [ "$perc" -ge "85" ]; then
+        echo -e "·BAT· $perc%"
+    else
+        echo -e "·BAT· $perc%"
+    fi
+}
+
+vol(){
+    mute=`amixer get Master | grep off`
+    if [ -z $mute ]; then
+        vol=`amixer get Master | grep -m 1 -o '[0-9][0-9]*%'`
+        echo -e "\x02\uE05D\x01 $vol"
+    else
+        echo -e "\x02\uE05F\x01"
+    fi
+}
+
+mem(){
+    mem=`free -h | awk '/Mem:/ {printf("%s", $3)}'`
+    echo -e "·MEM· $mem"
+}
+
+cpu(){
+    read cpu a b c previdle rest < /proc/stat
+    prevtotal=$((a+b+c+previdle))
+    sleep 0.5
+    read cpu a b c idle rest < /proc/stat
+    total=$((a+b+c+idle))
+    cpu=$((100*( (total-prevtotal) - (idle-previdle) ) / (total-prevtotal) ))
+    echo -e "·CPU· $cpu%"
+}
+
+mpd(){
+    if mpc &> /dev/null && [[ $(mpc | wc -l) != 1 ]]; then
+        if [[ $(mpc | awk 'NR==2 {print $1}') == "[paused]" ]] ; then
+            echo -e "\x02\uE0FE\x01 $( mpc | head -1 )"
+        else
+            echo -e "\x02\uE0FD\x01 $( mpc | head -1 )"
+        fi
+    fi
+}
+
+while true ; do
+    # status=`echo -e "$(mpd)   $(cpu)   $(mem)   $(vol)   $(bat)   $(tgl) "`
+    status=`echo -e "$(cpu) $(mem) $(bat) | $(tgl)"`
+    xsetroot -name "$status"
+    sleep 1s
+done &

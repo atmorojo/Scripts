@@ -18,14 +18,13 @@ while :; do
         full="$(acpi -b | grep 'Full')"
 
         if [ -z "$charge" ] && [ -z "$perc" ]; then
-            echo -e "+@fg=2;·BAT·+@fg=0; no-bat"
+            echo -e "^fg(#AFAF00)·BAT·^fg() no-bat"
         elif [ -z "$online" ] && [ "$perc" -le "25" ]; then
-            echo -e "+@fg=3;·BAT· $perc% BATTERY LOW+@fg=0;";
-            dunstify "Your battery is running low: $perc% remaining"
+            echo -e "^fg(#BA4834)·BAT·^fg() $perc% BATTERY LOW^fg();"
         elif [ "$perc" -ge "85" ]; then
-            echo -e "+@fg=2;·BAT·+@fg=0; $perc%"
+            echo -e "^fg(#AFAF00)·BAT·^fg() $perc%"
         else
-            echo -e "+@fg=2;·BAT·+@fg=0; $perc%"
+            echo -e "^fg(#AFAF00)·BAT·^fg() $perc%"
         fi
     }
 
@@ -42,7 +41,7 @@ while :; do
     mem(){
         #mem=`free -m | awk '/Mem:/ {printf("%d%", $3/$2*100)}'`
         mem=`free -h | awk '/Mem:/ {printf("%s", $3)}'`
-        echo -e "+@fg=2;·RAM·+@fg=0; $mem"
+        echo -e "^fg(#AFAF00)·RAM·^fg() $mem"
     }
 
     cpu(){
@@ -52,7 +51,7 @@ while :; do
         read cpu a b c idle rest < /proc/stat
         total=$((a+b+c+idle))
         cpu=$((100*( (total-prevtotal) - (idle-previdle) ) / (total-prevtotal) ))
-        echo -e "+@fg=2;·CPU·+@fg=0;  $cpu%"
+        echo -e "^fg(#AFAF00)·CPU·^fg()  $cpu%"
     }
 
     mpd(){
@@ -66,5 +65,6 @@ while :; do
     }
 
     echo -e " $(cpu) | $(mem) | $(bat) "
-    sleep $SLEEP_SEC
-done
+    sleep $SLEEP_SEC; done | dzen2 -ta c \
+        -fn '-*-IBM Plex Mono-Medium-r-normal-*-12-*-*-*-n-*-*-*' \
+        -bg '#1D2021' -fg '#EAE5E5'

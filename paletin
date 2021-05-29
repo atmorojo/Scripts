@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Paletin is simple tool to generate GPL format color palette from your own image. 
+# This tool is created by Gimpscape ID. 
+
+FILE=$1
+PALETTE_NAME=$2
+
+# checking dependency
+if ! extcolors --version COMMAND &> /dev/null
+then
+    echo "extcolors not found!"
+    echo "Please install extcolors first!"
+    exit
+fi
+
+if [ -f $PALETTE_NAME.gpl ]; then
+    echo "The palette name already exists, please use another name!"
+    exit
+fi
+
+touch $PALETTE_NAME.gpl
+echo "GIMP Palette" >> $PALETTE_NAME.gpl
+echo "Name: $PALETTE_NAME" >> $PALETTE_NAME.gpl
+echo "# GPL Generated from Paletin by Gimpscape" >> $PALETTE_NAME.gpl
+echo "#" >> $PALETTE_NAME.gpl
+echo "" >> $PALETTE_NAME.gpl
+
+# parsing
+extcolors -o text "$FILE" \
+    | sed -n '/\((*)\)/ p' \
+    | awk '{gsub(/\(|,|\)|:/,"")}1 {print $1, $2, $3}' \
+    >> $PALETTE_NAME.gpl
+
+# copying into inkscape directory if exists
+if [ -d $(inkscape --user-data-directory) ] 
+then
+    echo "Palette $PALETTE_NAME was generated succesfully!"
+    echo "Copying Generated Pallet into Inkscape directory"
+    cp -r $PALETTE_NAME.gpl $(inkscape --user-data-directory)/palettes
+    echo "Done!"
+else
+    echo "Palette $PALETTE_NAME was generated succesfully!"
+fi
+
+exit

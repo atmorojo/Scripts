@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<g font-family="monospace" font-size="14px">
+<text x="0" y="14" xml:space="preserve"><tspan fill="#408080" font-style="italic">#!/bin/bash</tspan></text>
+<text x="0" y="33" xml:space="preserve"><tspan fill="#408080" font-style="italic"></tspan></text>
+<text x="0" y="52" xml:space="preserve"><tspan fill="#408080" font-style="italic">#&#160;Paletin&#160;is&#160;simple&#160;tool&#160;to&#160;generate&#160;GPL&#160;format&#160;color&#160;palette&#160;from&#160;your&#160;own&#160;image.&#160;</tspan></text>
+<text x="0" y="71" xml:space="preserve"><tspan fill="#408080" font-style="italic"></tspan><tspan fill="#408080" font-style="italic">#&#160;This&#160;tool&#160;is&#160;created&#160;by&#160;Gimpscape&#160;ID.&#160;</tspan></text>
+<text x="0" y="90" xml:space="preserve"><tspan fill="#408080" font-style="italic"></tspan></text>
+<text x="0" y="109" xml:space="preserve"><tspan fill="#19177C">FILE</tspan><tspan fill="#666666">=</tspan><tspan fill="#19177C">$1</tspan></text>
+<text x="0" y="128" xml:space="preserve"><tspan fill="#19177C">PALETTE_NAME</tspan><tspan fill="#666666">=</tspan><tspan fill="#19177C">$2</tspan></text>
+<text x="0" y="147" xml:space="preserve"></text>
+<text x="0" y="166" xml:space="preserve"><tspan fill="#408080" font-style="italic">#&#160;checking&#160;dependency</tspan></text>
+<text x="0" y="185" xml:space="preserve"><tspan fill="#408080" font-style="italic"></tspan><tspan fill="#008000" font-weight="bold">if</tspan>&#160;!&#160;extcolors&#160;--version&#160;COMMAND&#160;&amp;&gt;&#160;/dev/null</text>
+<text x="0" y="204" xml:space="preserve"><tspan fill="#008000" font-weight="bold">then</tspan></text>
+<text x="0" y="223" xml:space="preserve">&#160;&#160;&#160;&#160;<tspan fill="#008000">echo</tspan>&#160;<tspan fill="#BA2121">&quot;extcolors&#160;not&#160;found!&quot;</tspan></text>
+<text x="0" y="242" xml:space="preserve">&#160;&#160;&#160;&#160;<tspan fill="#008000">echo</tspan>&#160;<tspan fill="#BA2121">&quot;Please&#160;install&#160;extcolors&#160;first!&quot;</tspan></text>
+<text x="0" y="261" xml:space="preserve">&#160;&#160;&#160;&#160;<tspan fill="#008000">exit</tspan></text>
+<text x="0" y="280" xml:space="preserve"><tspan fill="#008000" font-weight="bold">fi</tspan></text>
+<text x="0" y="299" xml:space="preserve"></text>
+<text x="0" y="318" xml:space="preserve"><tspan fill="#008000" font-weight="bold">if</tspan>&#160;<tspan fill="#666666">[</tspan>&#160;-f&#160;<tspan fill="#19177C">$PALETTE_NAME</tspan>.gpl&#160;<tspan fill="#666666">]</tspan>;&#160;<tspan fill="#008000" font-weight="bold">then</tspan></text>
+<text x="0" y="337" xml:space="preserve">&#160;&#160;&#160;&#160;<tspan fill="#008000">echo</tspan>&#160;<tspan fill="#BA2121">&quot;The&#160;palette&#160;name&#160;already&#160;exists,&#160;please&#160;use&#160;another&#160;name!&quot;</tspan></text>
+<text x="0" y="356" xml:space="preserve">&#160;&#160;&#160;&#160;<tspan fill="#008000">exit</tspan></text>
+<text x="0" y="375" xml:space="preserve"><tspan fill="#008000" font-weight="bold">fi</tspan></text>
+<text x="0" y="394" xml:space="preserve"></text>
+<text x="0" y="413" xml:space="preserve">touch&#160;<tspan fill="#19177C">$PALETTE_NAME</tspan>.gpl</text>
+<text x="0" y="432" xml:space="preserve"><tspan fill="#008000">echo</tspan>&#160;<tspan fill="#BA2121">&quot;GIMP&#160;Palette&quot;</tspan>&#160;&gt;&gt;&#160;<tspan fill="#19177C">$PALETTE_NAME</tspan>.gpl</text>
+<text x="0" y="451" xml:space="preserve"><tspan fill="#008000">echo</tspan>&#160;<tspan fill="#BA2121">&quot;</tspan><tspan fill="#BA2121">Name:&#160;</tspan><tspan fill="#19177C">$PALETTE_NAME</tspan><tspan fill="#BA2121">&quot;</tspan>&#160;&gt;&gt;&#160;<tspan fill="#19177C">$PALETTE_NAME</tspan>.gpl</text>
+<text x="0" y="470" xml:space="preserve"><tspan fill="#008000">echo</tspan>&#160;<tspan fill="#BA2121">&quot;#&#160;GPL&#160;Generated&#160;from&#160;Paletin&#160;by&#160;Gimpscape&quot;</tspan>&#160;&gt;&gt;&#160;<tspan fill="#19177C">$PALETTE_NAME</tspan>.gpl</text>
+<text x="0" y="489" xml:space="preserve"><tspan fill="#008000">echo</tspan>&#160;<tspan fill="#BA2121">&quot;#&quot;</tspan>&#160;&gt;&gt;&#160;<tspan fill="#19177C">$PALETTE_NAME</tspan>.gpl</text>
+<text x="0" y="508" xml:space="preserve"><tspan fill="#008000">echo</tspan>&#160;<tspan fill="#BA2121">&quot;&quot;</tspan>&#160;&gt;&gt;&#160;<tspan fill="#19177C">$PALETTE_NAME</tspan>.gpl</text>
+<text x="0" y="527" xml:space="preserve"></text>
+<text x="0" y="546" xml:space="preserve"><tspan fill="#408080" font-style="italic">#&#160;parsing</tspan></text>
+<text x="0" y="565" xml:space="preserve"><tspan fill="#408080" font-style="italic"></tspan>extcolors&#160;-o&#160;text&#160;<tspan fill="#BA2121">&quot;</tspan><tspan fill="#19177C">$FILE</tspan><tspan fill="#BA2121">&quot;</tspan>&#160;<tspan fill="#BB6622" font-weight="bold">\</tspan></text>
+<text x="0" y="584" xml:space="preserve"><tspan fill="#BB6622" font-weight="bold"></tspan>&#160;&#160;&#160;&#160;|&#160;sed&#160;-n&#160;<tspan fill="#BA2121">&#39;/\((*)\)/&#160;p&#39;</tspan>&#160;<tspan fill="#BB6622" font-weight="bold">\</tspan></text>
+<text x="0" y="603" xml:space="preserve"><tspan fill="#BB6622" font-weight="bold"></tspan>&#160;&#160;&#160;&#160;|&#160;awk&#160;<tspan fill="#BA2121">&#39;{gsub(/\(|,|\)|:/,&quot;&quot;)}1&#160;{print&#160;$1,&#160;$2,&#160;$3}&#39;</tspan>&#160;<tspan fill="#BB6622" font-weight="bold">\</tspan></text>
+<text x="0" y="622" xml:space="preserve"><tspan fill="#BB6622" font-weight="bold"></tspan>&#160;&#160;&#160;&#160;&gt;&gt;&#160;<tspan fill="#19177C">$PALETTE_NAME</tspan>.gpl</text>
+<text x="0" y="641" xml:space="preserve"></text>
+<text x="0" y="660" xml:space="preserve"><tspan fill="#408080" font-style="italic">#&#160;copying&#160;into&#160;inkscape&#160;directory&#160;if&#160;exists</tspan></text>
+<text x="0" y="679" xml:space="preserve"><tspan fill="#408080" font-style="italic"></tspan><tspan fill="#008000" font-weight="bold">if</tspan>&#160;<tspan fill="#666666">[</tspan>&#160;-d&#160;<tspan fill="#008000" font-weight="bold">$(</tspan>inkscape&#160;--user-data-directory<tspan fill="#008000" font-weight="bold">)</tspan>&#160;<tspan fill="#666666">]</tspan>&#160;</text>
+<text x="0" y="698" xml:space="preserve"><tspan fill="#008000" font-weight="bold">then</tspan></text>
+<text x="0" y="717" xml:space="preserve">&#160;&#160;&#160;&#160;<tspan fill="#008000">echo</tspan>&#160;<tspan fill="#BA2121">&quot;</tspan><tspan fill="#BA2121">Palette&#160;</tspan><tspan fill="#19177C">$PALETTE_NAME</tspan><tspan fill="#BA2121">&#160;was&#160;generated&#160;succesfully!</tspan><tspan fill="#BA2121">&quot;</tspan></text>
+<text x="0" y="736" xml:space="preserve">&#160;&#160;&#160;&#160;<tspan fill="#008000">echo</tspan>&#160;<tspan fill="#BA2121">&quot;Copying&#160;Generated&#160;Pallet&#160;into&#160;Inkscape&#160;directory&quot;</tspan></text>
+<text x="0" y="755" xml:space="preserve">&#160;&#160;&#160;&#160;cp&#160;-r&#160;<tspan fill="#19177C">$PALETTE_NAME</tspan>.gpl&#160;<tspan fill="#008000" font-weight="bold">$(</tspan>inkscape&#160;--user-data-directory<tspan fill="#008000" font-weight="bold">)</tspan>/palettes</text>
+<text x="0" y="774" xml:space="preserve">&#160;&#160;&#160;&#160;<tspan fill="#008000">echo</tspan>&#160;<tspan fill="#BA2121">&quot;Done!&quot;</tspan></text>
+<text x="0" y="793" xml:space="preserve"><tspan fill="#008000" font-weight="bold">else</tspan></text>
+<text x="0" y="812" xml:space="preserve">&#160;&#160;&#160;&#160;<tspan fill="#008000">echo</tspan>&#160;<tspan fill="#BA2121">&quot;</tspan><tspan fill="#BA2121">Palette&#160;</tspan><tspan fill="#19177C">$PALETTE_NAME</tspan><tspan fill="#BA2121">&#160;was&#160;generated&#160;succesfully!</tspan><tspan fill="#BA2121">&quot;</tspan></text>
+<text x="0" y="831" xml:space="preserve"><tspan fill="#008000" font-weight="bold">fi</tspan></text>
+<text x="0" y="850" xml:space="preserve"></text>
+<text x="0" y="869" xml:space="preserve"><tspan fill="#008000">exit</tspan></text>
+<text x="0" y="888" xml:space="preserve"></text></g></svg>
